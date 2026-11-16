@@ -1,0 +1,21 @@
+[package]
+name = "ail"
+version = "0.1.0"
+edition = "2024"
+authors = ["JJ"]
+license = "Apache-2.0"
+description = "Advanced Information Lister - provides a simple or detailed description of the running machine"
+repository = "https://github.com/JJtheJJpro/ail"
+readme = "README.md"
+
+[dependencies]
+os_info = { version = "3.15.0", optional = true }
+
+[features]
+# Requires privileged execution: AArch64 EL1+ or ARMv7-A/R privileged mode.
+default = ["std"]
+arm-privileged-registers = []
+std = ["dep:os_info"]
+
+[target.'cfg(any(target_arch = "x86", target_arch = "x86_64"))'.dependencies]
+raw-cpuid = "11.6.0"
